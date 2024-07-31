@@ -30,11 +30,31 @@ This repository contains the code for a SaaS application that allows users to ch
   CLERK_SECRET_KEY
 ```
 
+```
 PINECONE_API_KEY
+```
 
-- OpenAI API key
-- Pinecone API key
-- Langchain API key
+```
+OPENAI_API_KEY
+```
+
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+
+```
+STRIPE_API_KEY
+```
+
+```
+STRIPE_WEBHOOK_SECRET
+```
+
+```
+FIREBASE_STORAGE_BUCKET
+```
+
+```
+NEXT_PUBLIC_URL
+```
 
 ### Installation
 
@@ -43,4 +63,9 @@ PINECONE_API_KEY
    ```bash
    git clone https://github.com/aaqifshafi/chat-with-pdf.git
    cd chat-with-pdf
+   ```
+
+   ```
+   npm i
+   npm run dev
    ```
