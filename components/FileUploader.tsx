@@ -1,6 +1,7 @@
 "use client";
-import { useDropzone } from "react-dropzone";
+
 import { useCallback, useEffect } from "react";
+import { useDropzone } from "react-dropzone";
 import {
   CheckCircleIcon,
   CircleArrowDown,
@@ -8,31 +9,47 @@ import {
   RocketIcon,
   SaveIcon,
 } from "lucide-react";
-import { app } from "firebase-admin";
 import useUpload, { StatusText } from "@/hooks/useUpload";
 import { useRouter } from "next/navigation";
+import useSubscription from "@/hooks/useSubscription";
+import { useToast } from "./ui/use-toast";
 
 function FileUploader() {
-  const { handleUpload, fileId, status, progress } = useUpload();
+  const { progress, status, fileId, handleUpload } = useUpload();
+  const { isOverFileLimit, filesLoading } = useSubscription();
   const router = useRouter();
+  const { toast } = useToast();
+
   useEffect(() => {
     if (fileId) {
       router.push(`/dashboard/files/${fileId}`);
     }
   }, [fileId, router]);
+
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       // Do something with the files
+
       const file = acceptedFiles[0];
       if (file) {
-        await handleUpload(file);
+        if (!isOverFileLimit && !filesLoading) {
+          await handleUpload(file);
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Free Plan File Limit Reached",
+            description:
+              "You have reached the maximum number of files allowed for your account. Please upgrade to add more documents.",
+          });
+        }
       } else {
         // do nothing...
-        // add toast...
+        // toast...
       }
     },
-    [handleUpload]
+    [handleUpload, isOverFileLimit, filesLoading, toast]
   );
+
   const statusIcons: {
     [key in StatusText]: JSX.Element;
   } = {
@@ -47,6 +64,7 @@ function FileUploader() {
       <HammerIcon className="h-20 w-20 text-indigo-600 animate-bounce" />
     ),
   };
+
   const { getRootProps, getInputProps, isDragActive, isFocused, isDragAccept } =
     useDropzone({
       onDrop,
@@ -55,7 +73,9 @@ function FileUploader() {
         "application/pdf": [".pdf"],
       },
     });
+
   const uploadInProgress = progress != null && progress >= 0 && progress <= 100;
+
   return (
     <div className="flex flex-col gap-4 items-center max-w-7xl mx-auto">
       {/* Loading... tomorrow! */}
