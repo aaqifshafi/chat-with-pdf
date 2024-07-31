@@ -47,8 +47,8 @@ export async function createCheckoutSession(userDetails: UserDetails) {
     ],
     mode: "subscription",
     customer: stripeCustomerId,
-    success_url: `${getBaseUrl()}/dashboard?upgrade=true`,
-    cancel_url: `${getBaseUrl()}/dashboard/upgrade`,
+    success_url: `${process.env.NEXT_PUBLIC_URL}/dashboard?upgrade=true`,
+    cancel_url: `${process.env.NEXT_PUBLIC_URL}/dashboard/upgrade`,
   });
 
   return session.id;
