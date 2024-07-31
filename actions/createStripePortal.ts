@@ -24,7 +24,7 @@ export async function createStripePortal() {
 
   const session = await stripe.billingPortal.sessions.create({
     customer: stripeCustomerId,
-    return_url: `${getBaseUrl()}/dashboard`,
+    return_url: `${process.env.NEXT_PUBLIC_URL}/dashboard/`,
   });
 
   return session.url;
