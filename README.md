@@ -23,36 +23,22 @@ This repository contains the code for a SaaS application that allows users to ch
 ### Add .env
 
 ```bash
-  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-```
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
-```bash
-  CLERK_SECRET_KEY
-```
+CLERK_SECRET_KEY
 
-```
 PINECONE_API_KEY
-```
 
-```
-OPENAI_API_KEY
-```
+OPENAI_API
 
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
-```
 STRIPE_API_KEY
-```
 
-```
 STRIPE_WEBHOOK_SECRET
-```
 
-```
 FIREBASE_STORAGE_BUCKET
-```
 
-```
 NEXT_PUBLIC_URL
 ```
 
